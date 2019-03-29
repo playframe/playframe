@@ -224,7 +224,7 @@ rendering flow
 
 
     exports.h = h = require '@playframe/h'
-    exports.use = h.use
+    exports.use = use = h.use
 
     exports.reuse = (components)=>
       purified = {}
