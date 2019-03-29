@@ -7,12 +7,12 @@
 [React](https://github.com/facebook/react/) +
 [Redux](https://github.com/reduxjs/redux) +
 [Router](https://github.com/playframe/router) +
-[Shadow Dom Components](https://developers.google.com/web/fundamentals/web-components/shadowdom)
+[Shadow Dom](https://developers.google.com/web/fundamentals/web-components/shadowdom)
 alike minimalistic functional framework built to be able to update DOM
 up to 60 times per second.
-[Stateful Web Components](https://github.com/playframe/component)
-can rerender independetly and incaplulate styles with Shadow DOM.
-Comes with a very light trie router implementation
+[Components](https://github.com/playframe/component) can
+rerender independetly from the rest of the app and
+only if their local state is changed
 
 High performance server side rendering for PWA support is coming soon
 
@@ -56,11 +56,12 @@ route({
 ```
 
 ## Installation
-Using npm or yarn
+Using npm or yarn:
 ```sh
 npm i @playframe/playframe
 ```
-Using UNPKG for es6 bundle
+
+Using UNPKG for es6 bundle:
 ```uri
 https://unpkg.com/@playframe/playframe@1.0.0/dist/playframe.min.js
 ```
@@ -91,7 +92,7 @@ with [buble](https://github.com/rollup/rollup-plugin-buble)({jsx: 'h'})
 #### `PlayFrame.Component(state_actions)(View)(upgrade)(props)`:
 Creates a [Stateful Web Component](https://github.com/playframe/component)
 function for given `state_actions`, `View` and
-`upgrade`. `upgrade` will extent `state_actions` by using
+`upgrade`. `upgrade` will extend `state_actions` by using
 [`evolve`](https://github.com/playframe/evolve) function. Passing `props` to
 Component function will return Virtual DOM nodes. Styles are incaplulated by
 [Shadow Dom](https://developers.google.com/web/fundamentals/web-components/shadowdom)
@@ -112,7 +113,7 @@ const createHover = PlayFrame.Component({
   </hover>
 )
 let Hover = createHover({
-  i: 1, // lets start with 1
+  i: 1, // setting default i to 1
   _: { // and log increments
     add: (add)=>(e, state)=> {
       console.log('incremented')
@@ -155,10 +156,10 @@ PlayFrame.reuse({
     )
 })
 
-const counters = [{i: 1}, {i: 10}, {i: 100}]
+const counters = [{}, {}, {}]
 
-const View = ()=> counters.map((obj)=>
-  <custom-stateful mkey={obj} i={obj.i}></custom-stateful>
+const View = (state)=> counters.map((obj)=>
+  <custom-stateful mkey={obj}></custom-stateful>
 )
 ```
 
