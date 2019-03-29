@@ -3,10 +3,10 @@
 
 ###### 4 kB 60 fps Functional SPA/PWA Framework
 
-[framesync](https://github.com/Popmotion/framesync) +
+[framesync](https://github.com/Popmotion/popmotion/tree/master/packages/framesync) +
 [React](https://github.com/facebook/react/) +
 [Redux](https://github.com/reduxjs/redux) +
-[Router](https://github.com/playframe/router) +
+[router](https://github.com/playframe/router) +
 [Shadow Dom](https://developers.google.com/web/fundamentals/web-components/shadowdom)
 alike minimalistic functional framework built to be able to update DOM
 up to 60 times per second.
@@ -71,12 +71,13 @@ https://unpkg.com/@playframe/playframe@1.0.0/dist/playframe.min.js
 
 #### `PlayFrame.app(state_actions)(View)(container)`:
 Creates a new `app` and mounts it into `container`. Initial `state_actions` will
-create a `statue`
-instance that will be passed into the `View` function
+create a [`statue`](https://github.com/playframe/shadom)
+instance that will be passed into the `View` function. If state is modified by
+actions, app is rerendered. Returns `statue` instance
 
 #### `PlayFrame.route(state_actions)(container)`:
 Creates a new routed app and mounts it into `container`. Initial `state_actions`
-should have a `routes` property
+should have a `routes` property. Returns `statue` instance
 
 #### `PlayFrame.mount(domNode)`:
 Creates a [ShaDOM](https://github.com/playframe/shadom)
@@ -95,32 +96,24 @@ function for given `state_actions`, `View` and
 `upgrade`. `upgrade` will extend `state_actions` by using
 [`evolve`](https://github.com/playframe/evolve) function. Passing `props` to
 Component function will return Virtual DOM nodes. Styles are incaplulated by
-[Shadow Dom](https://developers.google.com/web/fundamentals/web-components/shadowdom)
+[Shadow Dom](https://developers.google.com/web/fundamentals/web-components/shadowdom).
 Example:
 ```js
 const createHover = PlayFrame.Component({
   i: 0,
   _: {add: (e, state)=> state.i++}
 })((state)=>
-  <hover onhover={state._.add}>
+  <my-hover onhover={state._.add}>
     <style>{`
       :host {
         display: block;
         border: ${state.i}px;
       }
     `}</style>
-    <h6>This was hovered {state.i} times</h6>
-  </hover>
+    <h6>This was hovered {state.i} time(s)</h6>
+  </my-hover>
 )
-let Hover = createHover({
-  i: 1, // setting default i to 1
-  _: { // and log increments
-    add: (add)=>(e, state)=> {
-      console.log('incremented')
-      return add(e, state)
-    }
-  }
-})
+let Hover = createHover()
 let View = (state)=> <Hover></Hover>
 ```
 
@@ -143,23 +136,11 @@ by `mkey` property which needs to be an object, not a primitive value.
 Example:
 ```js
 PlayFrame.reuse({
-  'custom-stateful': PlayFrame.Component({
-      i: 0,
-      _: { add: (n)=>(e, state)=> state.i += n }
-    })(
-      (state)=>
-        <custom-stateful>
-          <h6>{state.i}</h6>
-          <button onclick={state._.add(1)}>ADD 1</button>
-          <button onclick={state._.add(10)}>ADD 10</button>
-        </custom-stateful>
-    )
+  'my-hover': createHover
 })
-
-const counters = [{}, {}, {}]
-
-const View = (state)=> counters.map((obj)=>
-  <custom-stateful mkey={obj}></custom-stateful>
+const hovers = [{}, {}, {}]
+const View = (state)=> hovers.map((obj)=>
+  <my-hover mkey={obj}></my-hover>
 )
 ```
 
@@ -192,8 +173,9 @@ state.subCounter._.add()
 ```
 
 #### `PlayFrame.evolve(base, upgrade)`:
-Function for deep object extending. If any value in upgrade is function it
-gets called with existing value as argument. Example:
+[`evolve`](https://github.com/playframe/evolve)
+function for deep object extending. If any value in `upgrade` is function it's
+called with existing value as argument. Example:
 ```js
 const base = {
   i: 1,
