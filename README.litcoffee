@@ -63,7 +63,7 @@ npm i @playframe/playframe
 
 Using UNPKG for es6 bundle:
 ```uri
-https://unpkg.com/@playframe/playframe@1.0.0/dist/playframe.min.js
+https://unpkg.com/@playframe/playframe@1.0.1/dist/playframe.min.js
 ```
 
 
@@ -233,3 +233,4 @@ rendering flow
           mkey = props and props.mkey
           Component(mkey and {mkey}) props
       use purified
+      return

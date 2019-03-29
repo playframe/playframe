@@ -1,6 +1,6 @@
 {
   "name": "@playframe/playframe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "4 kB 60 fps Functional SPA/PWA Framework",
   "main": "index.js",
   "scripts": {
