@@ -11,10 +11,10 @@
 // alike minimalistic functional framework built to be able to update DOM
 // up to 60 times per second.
 // [Components](https://github.com/playframe/component) can
-// rerender independetly from the rest of the app and
+// rerender independently from the rest of the app and
 // only if their local state is changed
 
-// High performance server side rendering for PWA support is coming soon
+// High-performance server-side rendering for PWA support is coming soon
 
 // ##### SPA Example
 // ```js
@@ -63,19 +63,20 @@
 
 // Using UNPKG for es6 bundle:
 // ```uri
-// https://unpkg.com/@playframe/playframe@1.0.1/dist/playframe.min.js
+// https://unpkg.com/@playframe/playframe@1.0.2/dist/playframe.min.js
 // ```
 
 // ## API
 
 // #### `PlayFrame.app(state_actions)(View)(container)`:
 // Creates a new `app` and mounts it into `container`. Initial `state_actions` will
-// create a [`statue`](https://github.com/playframe/shadom)
+// create a [`statue`](https://github.com/playframe/statue)
 // instance that will be passed into the `View` function. If state is modified by
 // actions, app is rerendered. Returns `statue` instance
 
 // #### `PlayFrame.route(state_actions)(container)`:
-// Creates a new routed app and mounts it into `container`. Initial `state_actions`
+// Creates a new [routed](https://github.com/playframe/router)
+// app and mounts it into `container`. Initial `state_actions`
 // should have a `routes` property. Returns `statue` instance
 
 // #### `PlayFrame.mount(domNode)`:
@@ -129,7 +130,7 @@
 // Registering custom elements for
 // [Stateful Components](https://github.com/playframe/component).
 // To reuse the same Component
-// instanses we cache them in
+// instances we cache them in
 // [WeakMap](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap)
 // by `mkey` property which needs to be an object, not a primitive value.
 // Example:
@@ -173,8 +174,8 @@
 
 // #### `PlayFrame.evolve(base, upgrade)`:
 // [`evolve`](https://github.com/playframe/evolve)
-// function for deep object extending. If any value in `upgrade` is function it's
-// called with existing value as argument. Example:
+// function for deep object extending. If any value in `upgrade` is a function it
+// will be called with existing value as an argument. Example:
 // ```js
 // const base = {
 //   i: 1,
@@ -195,7 +196,7 @@
 
 // #### `PlayFrame.sync.{next, catch, then, finally, render, frame}`:
 // Initialized instance of [OverSync](https://github.com/playframe/oversync) that
-// helps different parts of framework synchronize execution within unified frame
+// helps different parts of framework synchronize execution within the unified frame
 // rendering flow
 
 // ## Source
