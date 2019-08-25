@@ -952,7 +952,7 @@
           }
         }
       }
-      if (!(child || old_child)) {
+      if (!((child != null) || (old_child != null))) {
         break;
       }
       child_el = el.childNodes[el_i];
